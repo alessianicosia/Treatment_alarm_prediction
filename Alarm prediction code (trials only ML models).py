@@ -23,7 +23,6 @@ from sklearn.linear_model import LogisticRegression, RidgeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 
-
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 
@@ -139,28 +138,28 @@ models = {
 # ====================== RANGE FOR HYPERPARAMETERS ======================
 param_ranges = {
     'RandomForest': {
-        'classifier__n_estimators': {'type': 'int', 'min': 100, 'max': 300, 'num': 9},
-        'classifier__max_depth': {'type': 'int', 'min': 10, 'max': 40, 'num': 7, 'allow_none': True},
+        'classifier__n_estimators': {'type': 'int', 'min': 50, 'max': 400, 'num': 9},
+        'classifier__max_depth': {'type': 'int', 'min': 3, 'max': 40, 'num': 7, 'allow_none': True},
         'classifier__min_samples_split': {'type': 'int', 'min': 2, 'max': 10, 'num': 9},
         'classifier__min_samples_leaf': {'type': 'int', 'min': 1, 'max': 5, 'num': 5},
         'classifier__max_features': ['sqrt', 'log2']
     },
     'ExtraTrees': {
-        'classifier__n_estimators': {'type': 'int', 'min': 100, 'max': 300, 'num': 9},
-        'classifier__max_depth': {'type': 'int', 'min': 10, 'max': 40, 'num': 7, 'allow_none': True},
+        'classifier__n_estimators': {'type': 'int', 'min': 50, 'max': 400, 'num': 9},
+        'classifier__max_depth': {'type': 'int', 'min': 3, 'max': 40, 'num': 7, 'allow_none': True},
         'classifier__min_samples_split': {'type': 'int', 'min': 2, 'max': 10, 'num': 9},
         'classifier__min_samples_leaf': {'type': 'int', 'min': 1, 'max': 5, 'num': 5},
         'classifier__max_features': ['sqrt', 'log2']
     },
     'AdaBoost': {
-        'classifier__n_estimators': {'type': 'int', 'min': 50, 'max': 300, 'num': 11},
+        'classifier__n_estimators': {'type': 'int', 'min': 50, 'max': 400, 'num': 11},
         'classifier__learning_rate': {'type': 'float', 'min': 0.01, 'max': 1.0, 'num': 8, 'scale': 'log'},
         'classifier__algorithm': ['SAMME', 'SAMME.R']
     },
     'HistGradientBoosting': {
         'classifier__max_iter': {'type': 'int', 'min': 100, 'max': 300, 'num': 9},
-        'classifier__learning_rate': {'type': 'float', 'min': 0.01, 'max': 0.2, 'num': 6, 'scale': 'log'},
-        'classifier__max_depth': {'type': 'int', 'min': 5, 'max': 20, 'num': 4, 'allow_none': True},
+        'classifier__learning_rate': {'type': 'float', 'min': 0.01, 'max': 1.0, 'num': 6, 'scale': 'log'},
+        'classifier__max_depth': {'type': 'int', 'min': 3, 'max': 20, 'num': 4, 'allow_none': True},
         'classifier__l2_regularization': {'type': 'float', 'min': 0.0, 'max': 0.2, 'num': 5}
     },
     'LogisticRegression': {
@@ -173,25 +172,21 @@ param_ranges = {
         'classifier__solver': ['auto', 'lsqr', 'sparse_cg']
     },
     'XGBoost': {
-        'classifier__n_estimators': {'type': 'int', 'min': 100, 'max': 400, 'num': 7},
-        'classifier__learning_rate': {'type': 'float', 'min': 0.01, 'max': 0.2, 'num': 6, 'scale': 'log'},
-        'classifier__max_depth': {'type': 'int', 'min': 3, 'max': 8, 'num': 6},
+        'classifier__n_estimators': {'type': 'int', 'min': 50, 'max': 400, 'num': 7},
+        'classifier__learning_rate': {'type': 'float', 'min': 0.01, 'max': 1.0, 'num': 6, 'scale': 'log'},
+        'classifier__max_depth': {'type': 'int', 'min': 3, 'max': 40, 'num': 6},
         'classifier__subsample': {'type': 'float', 'min': 0.6, 'max': 1.0, 'num': 5},
-        'classifier__colsample_bytree': {'type': 'float', 'min': 0.6, 'max': 1.0, 'num': 5}
     },
     'LightGBM': {
-        'classifier__n_estimators': {'type': 'int', 'min': 100, 'max': 400, 'num': 7},
-        'classifier__learning_rate': {'type': 'float', 'min': 0.01, 'max': 0.2, 'num': 6, 'scale': 'log'},
-        'classifier__max_depth': {'type': 'int', 'min': 5, 'max': 15, 'num': 3, 'allow_none': True},
-        'classifier__num_leaves': {'type': 'int', 'min': 31, 'max': 255, 'num': 8},
-        'classifier__subsample': {'type': 'float', 'min': 0.6, 'max': 1.0, 'num': 5},
-        'classifier__colsample_bytree': {'type': 'float', 'min': 0.6, 'max': 1.0, 'num': 5}
+        'classifier__n_estimators': {'type': 'int', 'min': 50, 'max': 400, 'num': 7},
+        'classifier__learning_rate': {'type': 'float', 'min': 0.01, 'max': 1.0, 'num': 6, 'scale': 'log'},
+        'classifier__max_depth': {'type': 'int', 'min': 3, 'max': 40, 'num': 3, 'allow_none': True},
+        'classifier__num_leaves': {'type': 'int', 'min': 30, 'max': 260, 'num': 8},
     },
     'MLP': {
         'classifier__hidden_layer_sizes': [(50,), (100,), (50, 50), (100, 50)],
         'classifier__activation': ['relu', 'tanh'],
         'classifier__learning_rate_init': {'type': 'float', 'min': 0.0005, 'max': 0.02, 'num': 6, 'scale': 'log'},
-        'classifier__alpha': {'type': 'float', 'min': 5e-5, 'max': 5e-3, 'num': 6, 'scale': 'log'}
     },
     'KNN': {
         'classifier__n_neighbors': {'type': 'int', 'min': 3, 'max': 31, 'step': 2},
